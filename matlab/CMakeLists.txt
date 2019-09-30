@@ -35,6 +35,10 @@ file(GLOB Matlab_srcs +caffe/private/caffe_.cpp)
 set(Matlab_caffe_mex ${PROJECT_SOURCE_DIR}/matlab/+caffe/private/caffe_.mex)
 
 caffe_get_current_cflags(cflags)
+set(cflags ${cflags} -I${Caffe_INCLUDE_DIR} -I${Boost_INCLUDE_DIR} -I${vecLib_INCLUDE_DIR})
+if(CPU_ONLY)
+  set(cflags ${cflags} -DCPU_ONLY)
+endif()
 caffe_parse_linker_libs(Caffe_LINKER_LIBS folders libflags macos_frameworks)
 set(folders $<TARGET_LINKER_FILE_DIR:caffe> ${folders})
 
